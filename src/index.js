@@ -13,38 +13,41 @@ const Home = lazy(() => import('./routes/home'));
 const About = lazy(() => import('./routes/about'));
 const Game = lazy(() => import('./routes/game'));
 
-function NavBar() {
+function NavBar(props) {
+    const routePaths = props.names.map((name, i) => {
+        return (
+            <li key={i}>
+                <Link to={props.paths[i]}>{name}</Link>
+            </li>
+        );
+    });
+
     return (
         <nav>
             <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-                <li>
-                    <Link to="/about">About</Link>
-                </li>
-                <li>
-                    <Link to="/game">Game</Link>
-                </li>
+                {routePaths}
             </ul>
         </nav>
     );
 }
 
-function Container() {
+function Container(props) {
+    let routes = [];
+
+    for(let i = 0; i < props.components.length; i++){
+        routes.push(
+            <Route key={i} path={props.paths[i]} component={props.names[i]}>
+                {props.components[i]}
+            </Route>
+        );
+    }
+
+
     return (
         <div className={"container"}>
             <Suspense fallback={<div>Loading...</div>}>
                 <Switch>
-                    <Route path="/about" component={"About"}>
-                        <About/>
-                    </Route>
-                    <Route path="/game" component={"Game"}>
-                        <Game/>
-                    </Route>
-                    <Route path="/" component={"Home"}>
-                        <Home/>
-                    </Route>
+                    {routes}
                 </Switch>
             </Suspense>
         </div>
@@ -53,12 +56,20 @@ function Container() {
 }
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            routeName : ['Home', 'About', 'Game'],
+            routePath :['/', '/about', '/game'],
+            routeComponent :[<Home/>, <About/>, <Game/>]
+        }
+    }
     render() {
         return (
             <Router>
                 <div>
-                    <NavBar/>
-                    <Container/>
+                    <NavBar names={this.state.routeName} paths={this.state.routePath}/>
+                    <Container components={this.state.routeComponent} names={this.state.routeName} paths={this.state.routePath}/>
                 </div>
             </Router>
         );
