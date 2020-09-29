@@ -11,7 +11,7 @@ import {
 
 const Home = lazy(() => import('./routes/home'));
 const About = lazy(() => import('./routes/about'));
-const User = lazy(() => import('./routes/user'));
+const Game = lazy(() => import('./routes/game'));
 
 export default function App() {
     return (
@@ -26,21 +26,19 @@ export default function App() {
                             <Link to="/about">About</Link>
                         </li>
                         <li>
-                            <Link to="/users">Users</Link>
+                            <Link to="/game">Game</Link>
                         </li>
                     </ul>
                 </nav>
 
-                {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
                 <div className={"container"}>
                     <Suspense fallback={<div>Loading...</div>}>
                         <Switch>
                             <Route path="/about" component={"About"}>
                                 <About />
                             </Route>
-                            <Route path="/users" component={"User"}>
-                                <User />
+                            <Route path="/game" component={"Game"}>
+                                <Game />
                             </Route>
                             <Route path="/" component={"Home"}>
                                 <Home />
