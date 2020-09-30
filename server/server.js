@@ -18,9 +18,6 @@ app.use(bodyParser.json());
 
 const db = "mongodb://ichimichi:passw0rd@ds019123.mlab.com:19123/test-login";
 
-var salt = bcrypt.genSaltSync(10);
-
-
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if (err) {
         console.error('Error :' + err);
@@ -35,7 +32,7 @@ app.get('/', (req, res)=>{
 });
 
 app.post('/register', (req, res) => {
-    var passHash = bcrypt.hashSync(req.body.password, salt);
+    var passHash = bcrypt.hashSync(req.body.password, 10);
 
     let userData = {
         username : req.body.username,
