@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./models/user');
+var bcrypt = require('bcryptjs');
 
 const PORT = process.env.PORT || 8080;
 
@@ -16,6 +17,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const db = "mongodb://ichimichi:passw0rd@ds019123.mlab.com:19123/test-login";
+
+var salt = bcrypt.genSaltSync(10);
+
 
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
     if (err) {
@@ -31,8 +35,15 @@ app.get('/', (req, res)=>{
 });
 
 app.post('/register', (req, res) => {
-    let userData = req.body;
+    var passHash = bcrypt.hashSync(req.body.password, salt);
+
+    let userData = {
+        username : req.body.username,
+        password : passHash
+    }
+
     let user = new User(userData);
+
     user.save((err, registeredUser) => {
         if (err) {
             console.log(err);
@@ -52,10 +63,7 @@ app.get('/login', (req, res) => {
             if (!user) {
                 res.status(401).send('Invalid username');
             }
-            else if (user.password !== userData.password) {
-                res.status(401).send('Invalid password');
-            }
-            else {
+            else if (bcrypt.compareSync(userData.password, user.password)) {
                 res.status(200).send(
                     {
                         username: user.username,
@@ -63,6 +71,9 @@ app.get('/login', (req, res) => {
                             message : 'welcome back'
                         }
                     });
+            }
+            else {
+                res.status(401).send('Invalid password');
             }
 
 
