@@ -1,5 +1,9 @@
 import React from 'react';
 
+import {
+    Link
+} from "react-router-dom";
+
 function SideBar(props) {
     return (
         <div className="sidebar" data-color="rose" data-background-color="black"
@@ -27,16 +31,16 @@ function SideBar(props) {
                         <div className="collapse" id="collapseExample">
                             <ul className="nav">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">
+                                    <Link className="nav-link" to="/signin">
                                         <span className="sidebar-mini"> SI </span>
                                         <span className="sidebar-normal"> Sign In </span>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">
+                                    <Link className="nav-link" to="/signup">
                                         <span className="sidebar-mini"> SU </span>
                                         <span className="sidebar-normal"> Sign Up </span>
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
