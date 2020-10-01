@@ -1,13 +1,12 @@
 import React from 'react';
-
+import avatar from './assets/avatar.jpg'
 import {
     Link
 } from "react-router-dom";
 
 function SideBar(props) {
     return (
-        <div className="sidebar" data-color="rose" data-background-color="black"
-             data-image="../assets/img/sidebar-1.jpg">
+        <div className="sidebar" data-color="rose" data-background-color="black">
             <div className="logo">
                 <a href="#" className="simple-text logo-mini">
                     NI
@@ -19,7 +18,7 @@ function SideBar(props) {
             <div className="sidebar-wrapper">
                 <div className="user">
                     <div className="photo">
-                        <img src="../assets/img/faces/avatar.jpg"/>
+                        <img src={avatar}/>
                     </div>
                     <div className="user-info">
                         <a data-toggle="collapse" href="#collapseExample" className="username">
