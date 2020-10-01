@@ -1,5 +1,5 @@
 import React from 'react';
-import Axios from 'axios';
+import axios from "axios";
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -20,11 +20,20 @@ class SignUp extends React.Component {
     }
 
     handleSignUp() {
+        const url = 'http://localhost:8090/register'
         const body = {
             username : this.state.username,
             password : this.state.password
         }
-        Axios.post('http://localhost:8080/register', body).then((response)=>{console.log(response)});
+
+        const options = {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            data: body,
+            url,
+        };
+
+        axios(options).then((response)=>{console.log(response)});
     }
 
     render() {
