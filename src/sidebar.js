@@ -29,28 +29,50 @@ function SideBar(props) {
                         </a>
                         <div className="collapse" id="collapseExample">
                             <ul className="nav">
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/signin">
-                                        <span className="sidebar-mini"> SI </span>
-                                        <span className="sidebar-normal"> Sign In </span>
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/signup">
-                                        <span className="sidebar-mini"> SU </span>
-                                        <span className="sidebar-normal"> Sign Up </span>
-                                    </Link>
-                                </li>
+                                {
+                                    !(props.isLoggedIn) &&
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/signin">
+                                                <span className="sidebar-mini"> SI </span>
+                                                <span className="sidebar-normal"> Sign In </span>
+                                            </Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/signup">
+                                                <span className="sidebar-mini"> SU </span>
+                                                <span className="sidebar-normal"> Sign Up </span>
+                                            </Link>
+                                        </li>
+                                    </>
+                                }
+                                {
+                                    (props.isLoggedIn) &&
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/profile">
+                                                <span className="sidebar-mini"> MP </span>
+                                                <span className="sidebar-normal"> My Profile </span>
+                                            </Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/signin" onClick={props.handleLogout}>
+                                                <span className="sidebar-mini"> LG </span>
+                                                <span className="sidebar-normal"> Log Out </span>
+                                            </Link>
+                                        </li>
+                                    </>
+                                }
                             </ul>
                         </div>
                     </div>
                 </div>
                 <ul className="nav">
                     <li className="nav-item active ">
-                        <a className="nav-link" href="#">
+                        <Link className="nav-link" to={'/dashboard'}>
                             <i className="material-icons">dashboard</i>
                             <p> Dashboard </p>
-                        </a>
+                        </Link>
                     </li>
 
                 </ul>
