@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from 'axios';
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -9,12 +10,21 @@ class SignUp extends React.Component {
         }
 
         this.handleChange = this.handleChange.bind(this)
+        this.handleSignUp = this.handleSignUp.bind(this)
     }
 
     handleChange(e) {
         this.setState({
             [e.target.name]: e.target.value
         })
+    }
+
+    handleSignUp() {
+        const body = {
+            username : this.state.username,
+            password : this.state.password
+        }
+        Axios.post('http://localhost:8080/register', body).then((response)=>{console.log(response)});
     }
 
     render() {
@@ -56,7 +66,7 @@ class SignUp extends React.Component {
                                             </span>
                                         </div>
                                         <div className="card-footer justify-content-center">
-                                            <a href="#pablo" className="btn btn-rose btn-link btn-lg">Sign Up</a>
+                                            <a href="#pablo" className="btn btn-rose btn-link btn-lg" onClick={this.handleSignUp}>Sign Up</a>
                                         </div>
                                     </div>
                                 </form>
