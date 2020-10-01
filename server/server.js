@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 var bcrypt = require('bcryptjs');
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8090;
 
 const app = express();
 
@@ -53,7 +53,7 @@ app.post('/register', (req, res) => {
 
 app.post('/login', (req, res) => {
     console.log(req.body)
-    let userData = req.body.data;
+    let userData = req.body;
     User.findOne({ username: userData.username }, (err, user) => {
         if (err) {
             console.log(err);
