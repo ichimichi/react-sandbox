@@ -21,10 +21,10 @@ ReactDOM.render(
                 <div>
                     <Suspense fallback={<div>Loading...</div>}>
                         <Switch>
-                            <Route path="/signin" component={"SignIn"}>
+                            <Route path="/signin">
                                 <SignIn/>
                             </Route>
-                            <Route path="/signup" component={"SignUp"}>
+                            <Route path="/signup">
                                 <SignUp/>
                             </Route>
                         </Switch>
