@@ -6,7 +6,8 @@ import {
     Switch,
     Route,
     Link,
-    Redirect
+    Redirect,
+    useHistory
 } from "react-router-dom";
 import SideBar from "./sidebar";
 import Dashboard from "./dashboard";
@@ -16,6 +17,7 @@ const SignIn = lazy(() => import('./auth/signin'));
 const SignUp = lazy(() => import('./auth/signup'));
 
 function App() {
+    let history = useHistory();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleSuccess = () => {
