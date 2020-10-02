@@ -3,12 +3,14 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { Link } from "react-router-dom";
-import React from "react";
+import {Link} from "react-router-dom";
+import React, {useState, useHistory} from "react";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import classNames from "classnames";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
+
+import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -49,15 +51,50 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const SignIn = () => {
+const SignIn = (props) => {
     const classes = useStyles();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const url = 'http://localhost:8090/login'
+        const body = {
+            username: username,
+            password: password
+        }
+
+        const options = {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            data: body,
+            url,
+        };
+
+        // console.log(props)
+        axios(options).then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+                props.history.push('/')
+
+                // props.auth.setIsLoggedIn(true);
+            }
+        }).catch((error) => {
+            console.log(error);
+            setMessage('Invalid username or password')
+            props.history.push('/')
+
+        });
+    }
+
     return (
         <div className={classNames(classes.session, classes.background)}>
             <div className={classes.content}>
                 <div className={classes.wrapper}>
                     <Card>
                         <CardContent>
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <div
                                     className={classNames(classes.logo, `text-xs-center pb-xs`)}
                                 >
@@ -69,6 +106,9 @@ const SignIn = () => {
                                     <Typography variant="caption">
                                         Sign in with your account to continue.
                                     </Typography>
+                                    <Typography variant="caption">
+                                        {message}
+                                    </Typography>
                                 </div>
                                 <TextField
                                     id="username"
@@ -76,6 +116,8 @@ const SignIn = () => {
                                     className={classes.textField}
                                     fullWidth
                                     margin="normal"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
                                 />
                                 <TextField
                                     id="password"
@@ -84,9 +126,11 @@ const SignIn = () => {
                                     type="password"
                                     fullWidth
                                     margin="normal"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox value="checkedA" />}
+                                    control={<Checkbox value="checkedA"/>}
                                     label="Stayed logged in"
                                     className={classes.fullWidth}
                                 />

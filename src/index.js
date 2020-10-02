@@ -7,7 +7,7 @@ import {
 } from "./primer/pages";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-import AppProvider from "./primer/components/AppProvider/AppProvider";
+import AppProvider from "./AppProvider/AppProvider";
 import Dashboard from "./primer/containers/Dashboard";
 import React from "react";
 import SignIn from "./auth/signin";
@@ -24,8 +24,7 @@ render(
         {/*<Route exact path="/forgot" component={PasswordReset} />*/}
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
-        {/*<Route path="/" component={Dashboard} />*/}
-        <Redirect to={'/signin'}/>
+        <Route path="/" component={Dashboard} />
       </Switch>
     </BrowserRouter>
   </AppProvider>,

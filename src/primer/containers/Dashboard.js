@@ -14,7 +14,7 @@ import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
 import routes from "../routes";
-import { useAppState } from "../components/AppProvider/AppProvider";
+import { useAppState } from "../../AppProvider/AppProvider";
 import useMountEffect from "../mountEffect";
 
 const useStyles = makeStyles(theme => ({
