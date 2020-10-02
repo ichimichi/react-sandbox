@@ -8,12 +8,12 @@ function SideBar(props) {
     return (
         <div className="sidebar" data-color="rose" data-background-color="black">
             <div className="logo">
-                <a href="#" className="simple-text logo-mini">
+                <Link to="/" className="simple-text logo-mini">
                     NI
-                </a>
-                <a href="#" className="simple-text logo-normal">
+                </Link>
+                <Link to="/" className="simple-text logo-normal">
                     Nice Infotech
-                </a>
+                </Link>
             </div>
             <div className="sidebar-wrapper">
                 <div className="user">

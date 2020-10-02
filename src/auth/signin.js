@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import {useHistory} from "react-router-dom";
 
-function SignIn(props)
-{
+function SignIn(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
+    let history = useHistory()
 
     const handleSignIn = (e) => {
         e.preventDefault();
@@ -23,7 +25,13 @@ function SignIn(props)
 
         axios(options).then((response) => {
             console.log(response);
-            props.handleSuccess();
+            if (response.status === 200) {
+                props.handleSuccess();
+                history.push('/dashboard');
+            }
+        }).catch((error) => {
+            console.log(error);
+            setMessage('Invalid username or password')
         });
     }
 
@@ -41,6 +49,7 @@ function SignIn(props)
                                     <div className="card-body ">
                                         <p className="card-description text-center">Enter details below to sign in
                                             to your account</p>
+                                        <p className="card-description text-center"> {message}</p>
                                         <span className="bmd-form-group">
                                                 <div className="input-group">
                                                     <div className="input-group-prepend">

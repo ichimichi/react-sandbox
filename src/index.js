@@ -12,6 +12,8 @@ import {
 import SideBar from "./sidebar";
 import Dashboard from "./dashboard";
 import Profile from "./profile";
+import Prompt from "./prompt";
+import Home from './home'
 
 const SignIn = lazy(() => import('./auth/signin'));
 const SignUp = lazy(() => import('./auth/signup'));
@@ -37,11 +39,17 @@ function App() {
                     <div>
                         <Suspense fallback={<div>Loading...</div>}>
                             <Switch>
+                                <Route exact path="/">
+                                    <Home />
+                                </Route>
                                 <Route path="/signin">
                                     <SignIn handleSuccess={handleSuccess}/>
                                 </Route>
                                 <Route path="/signup">
                                     <SignUp/>
+                                </Route>
+                                <Route path="/prompt">
+                                    <Prompt/>
                                 </Route>
                                 <PrivateRoute path="/dashboard" isLoggedIn={isLoggedIn}>
                                     <Dashboard/>
@@ -69,7 +77,7 @@ function PrivateRoute({children, isLoggedIn, ...rest}) {
                 ) : (
                     <Redirect
                         to={{
-                            pathname: "/signin",
+                            pathname: "/prompt",
                         }}
                     />
                 )
