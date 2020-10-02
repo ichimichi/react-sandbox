@@ -3,15 +3,15 @@ import {
   Lockscreen,
   NotFound,
   PasswordReset,
-  Signin,
   Signup
 } from "./primer/pages";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import AppProvider from "./primer/components/AppProvider/AppProvider";
 import Dashboard from "./primer/containers/Dashboard";
 import React from "react";
-
+import SignIn from "./auth/signin";
+import SignUp from "./auth/signup";
 import { render } from "react-dom";
 
 render(
@@ -20,11 +20,12 @@ render(
       <Switch>
         <Route exact path="/404" component={NotFound} />
         <Route exact path="/500" component={BackendError} />
-        <Route exact path="/Lockscreen" component={Lockscreen} />
-        <Route exact path="/forgot" component={PasswordReset} />
-        <Route exact path="/signin" component={Signin} />
-        <Route exact path="/signup" component={Signup} />
-        <Route path="/" component={Dashboard} />
+        {/*<Route exact path="/Lockscreen" component={Lockscreen} />*/}
+        {/*<Route exact path="/forgot" component={PasswordReset} />*/}
+        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/signup" component={SignUp} />
+        {/*<Route path="/" component={Dashboard} />*/}
+        <Redirect to={'/signin'}/>
       </Switch>
     </BrowserRouter>
   </AppProvider>,

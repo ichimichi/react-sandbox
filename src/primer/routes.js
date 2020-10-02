@@ -38,8 +38,6 @@ import {
   Progress,
   SelectionControls,
   Selects,
-  Signin,
-  Signup,
   Snackbars,
   Social,
   Steppers,
@@ -67,6 +65,9 @@ import PersonIcon from '@material-ui/icons/Person';
 import PhotoIcon from '@material-ui/icons/Photo';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import ViewColumnIcon from '@material-ui/icons/ViewColumn';
+
+import SignUp from "../auth/signup";
+import SignIn from "../auth/signup";
 
 export default {
   items: [
@@ -360,12 +361,12 @@ export default {
         {
           path: '/signin',
           name: 'Signin',
-          component: Signin
+          component: SignIn
         },
         {
           path: '/signup',
           name: 'Signup',
-          component: Signup
+          component: SignUp
         },
         {
           path: '/forgot',
