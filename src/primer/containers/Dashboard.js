@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = ({ history }) => {
   const classes = useStyles();
-  const [state, dispatch] = useAppState();
+  const {state, dispatch} = useAppState();
   const [opened, setOpened] = useState(true);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [openSpeedDial, setOpenSpeedDial] = useState(false);

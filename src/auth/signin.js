@@ -11,6 +11,7 @@ import classNames from "classnames";
 import {makeStyles} from "@material-ui/core/styles";
 
 import axios from 'axios'
+import { useAppState } from '../AppProvider/AppProvider';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -56,6 +57,7 @@ const SignIn = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const { setLogged } = useAppState()
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -74,16 +76,17 @@ const SignIn = (props) => {
 
         // console.log(props)
         axios(options).then((response) => {
-            console.log(response);
             if (response.status === 200) {
+                console.log(response);
+                setLogged(true);
                 props.history.push('/')
 
                 // props.auth.setIsLoggedIn(true);
             }
         }).catch((error) => {
             console.log(error);
+            setLogged(false);
             setMessage('Invalid username or password')
-            props.history.push('/')
 
         });
     }

@@ -9,10 +9,13 @@ import red from '@material-ui/core/colors/red';
 import rtl from 'jss-rtl';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import Cookies from 'js-cookie'
+
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 
 const Context = createContext();
 const { Provider } = Context;
+const cookieName = 'SandBoxCookieLogged'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -64,14 +67,26 @@ const AppProvider = ({ children }) => {
     }
   });
 
+  const cookieLogged = Cookies.getJSON(cookieName)
+  const [logged, setLogged] = useState(cookieLogged ? cookieLogged.logged : false)
+
+
   useEffect(() => {
     document.body.dir = state.direction;
   }, [state.direction]);
 
+  useEffect(() => {
+    if (logged) {
+      Cookies.set(cookieName, { logged: true })
+    } else {
+      Cookies.remove(cookieName)
+    }
+  }, [logged])
+
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>
-        <Provider value={[state, dispatch]} >{children}</Provider>
+        <Provider value={{state, dispatch,  logged, setLogged}} >{children}</Provider>
       </StylesProvider>
     </ThemeProvider>
   );
