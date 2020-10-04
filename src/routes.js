@@ -15,12 +15,6 @@ export default {
       type: 'link',
       icon: ExploreIcon,
       component: Home
-    },
-    {
-      path: 'https://iamnyasha.github.io/react-primer-docs/',
-      name: 'Documentation',
-      type: 'external',
-      icon: LocalLibraryIcon
-    },
+    }
   ]
 };
