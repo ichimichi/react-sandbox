@@ -1,17 +1,14 @@
 import {
   BackendError,
-  Lockscreen,
   NotFound,
-  PasswordReset,
-  Signup
-} from "./primer/pages";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+} from "./Pages";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import AppProvider from "./AppProvider/AppProvider";
-import Dashboard from "./primer/containers/Dashboard";
+import Dashboard from "./Containers/Dashboard";
 import React from "react";
-import SignIn from "./auth/signin";
-import SignUp from "./auth/signup";
+import SignIn from "./Auth/signin";
+import SignUp from "./Auth/signup";
 import { render } from "react-dom";
 
 render(
